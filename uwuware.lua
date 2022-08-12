@@ -1,10 +1,9 @@
 if game:GetService("CoreGui"):FindFirstChild("ScreenGui") then
     game:GetService("CoreGui"):FindFirstChild("ScreenGui"):Destroy()
 end
-
+local Utility = {}
 local library = {flags = {}, windows = {}, open = true}
 local Amount = 0
-local Utility = {}
 --Services
 local CoreGui = game:GetService"CoreGui"
 local runService = game:GetService"RunService"
@@ -23,29 +22,6 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 }
 
 --Functions
-local function round(num, bracket)
-	bracket = bracket or 1
-	local a = math.floor(num/bracket + (math.sign(num) * 0.5)) * bracket
-	if a < 0 then
-		a = a + bracket
-	end
-	return a
-end
-
-local function keyCheck(x,x1)
-	for _,v in next, x1 do
-		if v == x then
-			return true
-		end
-	end
-end
-
-local function update(input)
-	local delta = input.Position - dragStart
-	local yPos = (startPos.Y.Offset + delta.Y) < -36 and -36 or startPos.Y.Offset + delta.Y
-	dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
-end
-
 do
     function Utility:Create(_Instance, Properties, Children)
         local Object = Instance.new(_Instance)
@@ -67,6 +43,29 @@ do
         local TweenInfo = TweenInfo.new(Duration, ...)
         tweenService:Create(Instance, TweenInfo, Properties):Play()
     end
+end
+
+local function round(num, bracket)
+	bracket = bracket or 1
+	local a = math.floor(num/bracket + (math.sign(num) * 0.5)) * bracket
+	if a < 0 then
+		a = a + bracket
+	end
+	return a
+end
+
+local function keyCheck(x,x1)
+	for _,v in next, x1 do
+		if v == x then
+			return true
+		end
+	end
+end
+
+local function update(input)
+	local delta = input.Position - dragStart
+	local yPos = (startPos.Y.Offset + delta.Y) < -36 and -36 or startPos.Y.Offset + delta.Y
+	dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
 end
 
 function library:CreateNotification(Title, Text, Duration)
@@ -171,7 +170,7 @@ function library:CreateNotification(Title, Text, Duration)
     end)
 end
 
-Library:CreateNotification('UI Library', 'Has Loaded Successfully!' , 5)
+library:CreateNotification('UI Library', 'Has Loaded Successfully!' , 5)
 
 --From: https://devforum.roblox.com/t/how-to-create-a-simple-rainbow-effect-using-tweenService/221849/2
 local chromaColor
