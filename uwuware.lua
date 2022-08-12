@@ -3,8 +3,10 @@ if game:GetService("CoreGui"):FindFirstChild("ScreenGui") then
 end
 
 local library = {flags = {}, windows = {}, open = true}
-library.DefaultColor = Color3.fromRGB(56, 207, 154)
+local Amount = 0
+local Utility = {}
 --Services
+local CoreGui = game:GetService"CoreGui"
 local runService = game:GetService"RunService"
 local tweenService = game:GetService"TweenService"
 local textService = game:GetService"TextService"
@@ -44,98 +46,129 @@ local function update(input)
 	dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
 end
 
-if not game:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
-local notificationLibrary = Instance.new("ScreenGui")
-notificationLibrary.Name = "NotificationLibrary"
-notificationLibrary.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-notificationLibrary.Parent = game:GetService("CoreGui")
+do
+    function Utility:Create(_Instance, Properties, Children)
+        local Object = Instance.new(_Instance)
+        local Properties = Properties or {}
+        local Children = Children or {}
+        
+        for Index, Property in next, Properties do
+            Object[Index] = Property
+        end
 
-local notificationHolder = Instance.new("Frame")
-notificationHolder.Name = "NotificationHolder"
-notificationHolder.AnchorPoint = Vector2.new(0, 0.5)
-notificationHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-notificationHolder.BackgroundTransparency = 1
-notificationHolder.Position = UDim2.fromScale(0, 0.5)
-notificationHolder.Size = UDim2.fromScale(0.8, 1)
-notificationHolder.Parent = notificationLibrary
+        for _, Child in next, Children do
+            Child.Parent = Object
+        end
 
-local notificationUIListLayout = Instance.new("UIListLayout")
-notificationUIListLayout.Name = "NotificationUIListLayout"
-notificationUIListLayout.FillDirection = Enum.FillDirection.Vertical
-notificationUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-notificationUIListLayout.Padding = UDim.new(0, 4)
-notificationUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-notificationUIListLayout.Parent = notificationHolder
+        return Object
+    end
 
-local notificationUIPadding = Instance.new("UIPadding")
-notificationUIPadding.Name = "NotificationUIPadding"
-notificationUIPadding.PaddingBottom = UDim.new(0, 9)
-notificationUIPadding.PaddingLeft = UDim.new(0, 5)
-notificationUIPadding.Parent = notificationHolder
+    function Utility:Tween(Instance, Properties, Duration, ...)
+        local TweenInfo = TweenInfo.new(Duration, ...)
+        tweenService:Create(Instance, TweenInfo, Properties):Play()
+    end
 end
 
-local NotificationLib = game:GetService("CoreGui"):FindFirstChild("NotificationLibrary")
-local Holder = NotificationLib:FindFirstChild("NotificationHolder")
+function Library:CreateNotification(Title, Text, Duration)
+    task.spawn(function()
+        local Title = Title or 'Title'
+        local Text = Text or 'Text'
+        local Duration = Duration or 5
 
-function library:Notification(NotificationInfo)
-NotificationInfo.Text = NotificationInfo.Text or "This is a notification."
-NotificationInfo.Duration = NotificationInfo.Duration or 5
-NotificationInfo.Color = NotificationInfo.Color or library.DefaultColor
+        if not CoreGui:FindFirstChild('Visual UI | Notification') then
+            Utility:Create('ScreenGui', {
+                Name = 'Visual UI | Notification',
+                Parent = CoreGui
+            })
+        else
+            Utility:Create('Frame', {
+                Parent = CoreGui:FindFirstChild('Visual UI | Notification'),
+                Name = 'Notification'..tostring(Amount + 1),
+                BackgroundColor3 = Color3.fromRGB(25, 25, 25),
+                BorderSizePixel = 0,
+                Position = UDim2.new(1, 300, 1, -30),
+                Size = UDim2.new(0, 300, 0, 50),
+                AnchorPoint = Vector2.new(1, 1)
+            }, {
+                Utility:Create('UICorner', {
+                    CornerRadius = UDim.new(0, 5),
+                    Name = 'NotificationCorner'
+                }),
+                Utility:Create('UIStroke', {
+                    Name = 'NotificationStroke',
+                    ApplyStrokeMode = 'Contextual',
+                    Color = Color3.fromRGB(125, 125, 125),
+                    LineJoinMode = 'Round',
+                    Thickness = 1
+                }),
+                Utility:Create('TextLabel', {
+                    Name = 'NotificationTitle',
+                    BackgroundTransparency = 1,
+                    Position = UDim2.new(0, 0, 0, -1),
+                    Size = UDim2.new(0, 300, 0, 30),
+                    Font = Enum.Font.Gotham,
+                    Text = Title,
+                    TextColor3 = Color3.fromRGB(255, 255, 255),
+                    TextSize = 16,
+                    TextXAlignment = Enum.TextXAlignment.Left
+                }, {
+                    Utility:Create('UIPadding', {
+                        Name = 'NotificationTitlePadding',
+                        PaddingLeft = UDim.new(0, 7)
+                    })
+                }),
+                Utility:Create('TextLabel', {
+                    Name = 'NotificationText',
+                    BackgroundTransparency = 1,
+                    Position = UDim2.new(0, 0, 0, 25),
+                    Size = UDim2.new(0, 300, 0, 30),
+                    Font = Enum.Font.Gotham,
+                    Text = Text,
+                    TextWrapped = true,
+                    TextColor3 = Color3.fromRGB(135, 135, 135),
+                    TextSize = 14,
+                    TextXAlignment = Enum.TextXAlignment.Left
+                }, {
+                    Utility:Create('UIPadding', {
+                        Name = 'NotificationTextPadding',
+                        PaddingLeft = UDim.new(0, 7)
+                    })
+                })
+            })
 
-local notificationText = Instance.new("TextLabel")
-notificationText.Name = "NotificationText"
-notificationText.ClipsDescendants = true
-notificationText.Font = Enum.Font.GothamBold
-notificationText.Text = NotificationInfo.Text
-notificationText.TextColor3 = Color3.fromRGB(214, 214, 214)
-notificationText.TextSize = 14
-notificationText.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-notificationText.BorderSizePixel = 0
-notificationText.Position = UDim2.fromScale(0, 0.954)
-notificationText.Size = UDim2.fromOffset(0, 38)
-notificationText.Parent = Holder
-
-local outerFrame = Instance.new("Frame")
-outerFrame.Name = "OuterFrame"
-outerFrame.AnchorPoint = Vector2.new(0, 1)
-outerFrame.BackgroundColor3 = NotificationInfo.Color
-outerFrame.BorderSizePixel = 0
-outerFrame.Position = UDim2.fromScale(0, 1)
-outerFrame.Size = UDim2.new(1, 0, 0, 3)
-outerFrame.ZIndex = 2
-outerFrame.Parent = notificationText
-
-local notificationUICorner = Instance.new("UICorner")
-notificationUICorner.Name = "NotificationUICorner"
-notificationUICorner.CornerRadius = UDim.new(0, 4)
-notificationUICorner.Parent = notificationText
-
-local innerFrame = Instance.new("Frame")
-innerFrame.Name = "InnerFrame"
-innerFrame.AnchorPoint = Vector2.new(0, 1)
-innerFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-innerFrame.BorderSizePixel = 0
-innerFrame.Position = UDim2.fromScale(0, 1)
-innerFrame.Size = UDim2.new(1, 0, 0, 3)
-innerFrame.Parent = notificationText
-
-local NotifText = notificationText
-local TextBounds = NotifText.TextBounds
-
-coroutine.wrap(function()
-local InTween = tweenService:Create(NotifText, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, TextBounds.X + 20, 0, 38)})
-InTween:Play()
-InTween.Completed:Wait()
-
-local LineTween = tweenService:Create(outerFrame, TweenInfo.new(NotificationInfo.Duration, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {Size = UDim2.new(0, 0, 0, 3)})
-LineTween:Play()
-LineTween.Completed:Wait()
-
-local OutTween = tweenService:Create(NotifText, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 38)})
-OutTween:Play()
-OutTween.Completed:Wait()
-notificationText:Destroy()
-end)()
+            Amount = Amount + 1
+            local Holder = CoreGui:FindFirstChild('Visual UI | Notification')['Notification'..tostring(Amount)]
+            local TitleObj = Holder['NotificationTitle']
+            local TextObj = Holder['NotificationText']
+            local TextSize = textService:GetTextSize(Text, 14, Enum.Font.Gotham, Vector2.new(300, math.huge))
+            Holder.Size = UDim2.new(0, 300, 0, TextSize.Y + 30)
+            TextObj.Size = UDim2.new(0, 300, 0, TextSize.Y)
+            if Amount > 1 then
+                local Previous = Holder.Parent['Notification'..tostring(Amount - 1)]
+                local PreviousSize = Previous.AbsoluteSize.Y
+                Holder.Position = UDim2.new(1, 300, 1, -30 - PreviousSize - 5)
+                Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -30 - PreviousSize - 5)}, 0.5)
+                Previous.Changed:Connect(function(Property)
+                    if Property == 'Position' then
+                        if Previous.Position == UDim2.new(1, 300, 1, Previous.Position.Y.Offset) then
+                            Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -30)}, 0.5)
+                        end
+                    end
+                end)
+            else
+                Utility:Tween(Holder, {Position = UDim2.new(1, -30, 1, -30)}, 0.5)
+            end
+            task.wait(Duration - 1)
+            Utility:Tween(Holder, {BackgroundTransparency = 0.5}, 0.25)
+            Utility:Tween(TitleObj, {TextTransparency = 0.5}, 0.25)
+            Utility:Tween(TextObj, {TextTransparency = 0.5}, 0.25)
+            task.wait(0.5)
+            Utility:Tween(Holder, {Position = UDim2.new(1, 300, 1, Holder.Position.Y.Offset)}, 0.5)
+            task.wait(0.5)
+            Holder:Destroy()
+            Amount = Amount - 1
+        end
+    end)
 end
 
 library:Notification({Text = "Notification Has Loaded!",Duration = 15})
