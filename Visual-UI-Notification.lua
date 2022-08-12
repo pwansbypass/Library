@@ -5,7 +5,7 @@ local RunService = game:GetService('RunService')
 local TextService = game:GetService('TextService')
 local Players = game:GetService('Players')
 
-local UIName = 'Visual UI Notification'
+local UIName = 'Visual UI'
 local Amount = 0
 local Utility = {}
 local Library = {}
@@ -34,7 +34,7 @@ function Library:CreateNotification(Title, Text, Duration)
         local Text = Text or 'Text'
         local Duration = Duration or 5
 
-        if not CoreGui:FindFirstChild('Visual UI Notification') then
+        if not CoreGui:FindFirstChild('Visual UI') then
             Utility:Create('ScreenGui', {
                 Name = 'Visual UI Notification',
                 Parent = CoreGui
