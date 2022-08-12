@@ -44,9 +44,6 @@ local function update(input)
 	dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
 end
 
-
-local TweenService = game:GetService("TweenService")
-
 if not game:GetService("CoreGui"):FindFirstChild("NotificationLibrary") then
 local notificationLibrary = Instance.new("ScreenGui")
 notificationLibrary.Name = "NotificationLibrary"
