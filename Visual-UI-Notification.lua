@@ -130,4 +130,3 @@ function Library:CreateNotification(Title, Text, Duration)
         end
     end)
 end
-return Library
