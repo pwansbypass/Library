@@ -69,7 +69,7 @@ do
     end
 end
 
-function Library:CreateNotification(Title, Text, Duration)
+function library:CreateNotification(Title, Text, Duration)
     task.spawn(function()
         local Title = Title or 'Title'
         local Text = Text or 'Text'
