@@ -1,16 +1,28 @@
 local CoreGui = game:GetService('CoreGui')
 local TweenService = game:GetService('TweenService')
-local UserInputService = game:GetService('UserInputService')
-local RunService = game:GetService('RunService')
 local TextService = game:GetService('TextService')
-local Players = game:GetService('Players')
-
 local UIName = 'Visual UI'
 local Amount = 0
 local Utility = {}
 local Library = {}
 
 do
+    function Utility:Create(_Instance, Properties, Children)
+        local Object = Instance.new(_Instance)
+        local Properties = Properties or {}
+        local Children = Children or {}
+        
+        for Index, Property in next, Properties do
+            Object[Index] = Property
+        end
+
+        for _, Child in next, Children do
+            Child.Parent = Object
+        end
+
+        return Object
+    end
+
     function Utility:Tween(Instance, Properties, Duration, ...)
         local TweenInfo = TweenInfo.new(Duration, ...)
         TweenService:Create(Instance, TweenInfo, Properties):Play()
