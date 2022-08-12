@@ -1,7 +1,7 @@
 local library = {}
 library.Flags = {}
-library.YSpacing = 38
 library.DefaultColor = Color3.fromRGB(56, 207, 154)
+library.YSpacing = 38
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
