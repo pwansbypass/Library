@@ -11,21 +11,10 @@ local Utility = {}
 local Library = {}
 
 do
-    function Utility:DestroyUI()
-        if CoreGui:FindFirstChild(UIName) ~= nil then
-            CoreGui:FindFirstChild(UIName):Destroy()
-        end
-    end
-
-
     function Utility:Tween(Instance, Properties, Duration, ...)
         local TweenInfo = TweenInfo.new(Duration, ...)
         TweenService:Create(Instance, TweenInfo, Properties):Play()
     end
-end
-
-do
-    Utility:DestroyUI()
 end
 
 function Library:CreateNotification(Title, Text, Duration)
@@ -34,14 +23,14 @@ function Library:CreateNotification(Title, Text, Duration)
         local Text = Text or 'Text'
         local Duration = Duration or 5
 
-        if not CoreGui:FindFirstChild('Visual UI') then
+        if not CoreGui:FindFirstChild('Visual UI | Notification') then
             Utility:Create('ScreenGui', {
-                Name = 'Visual UI Notification',
+                Name = 'Visual UI | Notification',
                 Parent = CoreGui
             })
         else
             Utility:Create('Frame', {
-                Parent = CoreGui:FindFirstChild('Visual UI Notification'),
+                Parent = CoreGui:FindFirstChild('Visual UI | Notification'),
                 Name = 'Notification'..tostring(Amount + 1),
                 BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                 BorderSizePixel = 0,
@@ -96,7 +85,7 @@ function Library:CreateNotification(Title, Text, Duration)
             })
 
             Amount = Amount + 1
-            local Holder = CoreGui:FindFirstChild('Visual UI Notification')['Notification'..tostring(Amount)]
+            local Holder = CoreGui:FindFirstChild('Visual UI | Notification')['Notification'..tostring(Amount)]
             local TitleObj = Holder['NotificationTitle']
             local TextObj = Holder['NotificationText']
             local TextSize = TextService:GetTextSize(Text, 14, Enum.Font.Gotham, Vector2.new(300, math.huge))
