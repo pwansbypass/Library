@@ -170,7 +170,6 @@ function library:CreateNotification(Title, Text, Duration)
     end)
 end
 
-library:CreateNotification('UI Library', 'Has Loaded Successfully!' , 5)
 
 --From: https://devforum.roblox.com/t/how-to-create-a-simple-rainbow-effect-using-tweenService/221849/2
 local chromaColor
