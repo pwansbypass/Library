@@ -541,7 +541,7 @@ uICorner1.Parent = outerFrame
 
 local innerFrame = Instance.new("ImageLabel")
 innerFrame.Name = "InnerFrame"
-innerFrame.Image = "rbxassetid://10491968209"
+innerFrame.Image = getcustomasset("Revenant/Circle.png")
 innerFrame.ResampleMode = "Pixelated"
 innerFrame.ImageColor3 = Color3.fromRGB(255, 255, 255)
 innerFrame.BackgroundTransparency = 1
@@ -638,7 +638,7 @@ dropdownText.Parent = dropdown
 
 local dropdownContainerButton = Instance.new("ImageLabel")
 dropdownContainerButton.Name = "DropdownContainerButton"
-dropdownContainerButton.Image = getcustomasset("Revenant/Collapse.png")
+dropdownContainerButton.Image = "rbxassetid://10491968024"
 dropdownContainerButton.AnchorPoint = Vector2.new(1, .5)
 dropdownContainerButton.ImageColor3 = Color3.fromRGB(129, 129, 129)
 dropdownContainerButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
