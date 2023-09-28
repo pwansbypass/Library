@@ -1,5 +1,5 @@
 local OLD; OLD = hookfunction(game.HttpGet, function(Self, Url, ...)
-    if Url == "https://github.com/diepedyt/bui/blob/main/arrayfieldBackup2.lua" then
+    if Url == "https://raw.githubusercontent.com/diepedyt/bui/main/arrayfield(rayfield)Modified.lua" then
         return [[
 
             local Release = "Release 2A"
@@ -1172,7 +1172,7 @@ local OLD; OLD = hookfunction(game.HttpGet, function(Self, Url, ...)
             function ArrayFieldLibrary:CreateWindow(Settings)
             ArrayField.Enabled = false
             local Passthrough = false
-            Topbar.Title.Text = "BADWARE > FAZIUM | discord.gg/kRGrSkU5vv"
+            Topbar.Title.Text = "Crack Hub"
             Main.Size = UDim2.new(0, 450, 0, 260)
             Main.Visible = true
             Main.BackgroundTransparency = 1
@@ -3445,4 +3445,4 @@ local OLD; OLD = hookfunction(game.HttpGet, function(Self, Url, ...)
         ]]
     end
     return OLD(Self,Url,...)
-end) print"Bypassed"
+end) print"Bypassed Key: "..Settings.KeySettings.Key
