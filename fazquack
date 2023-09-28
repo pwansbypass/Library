@@ -3445,4 +3445,4 @@ local OLD; OLD = hookfunction(game.HttpGet, function(Self, Url, ...)
         ]]
     end
     return OLD(Self,Url,...)
-end) print("Bypassed Key: "..Settings.KeySettings.Key)
+end) print"Bypassed"
