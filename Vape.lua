@@ -136,8 +136,6 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
-    Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
-
     MakeDraggable(DragFrame, Main)
 
     local uitoggled = false
@@ -150,8 +148,7 @@ function lib:Window(text, preset, closebind)
                 else
                     ui.Enabled = true
             end
-        end
-    )
+        end)
 
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
