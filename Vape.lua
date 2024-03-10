@@ -150,9 +150,8 @@ function lib:Window(text, preset, closebind)
                         ui.Enabled = false
                     end)
                 else
-                    Main:TweenSize(UDim2.new(0, 560, 0, 319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true, function()
-					    ui.Enabled = true
-					end)
+					ui.Enabled = true
+                    Main:TweenSize(UDim2.new(0, 560, 0, 319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true)
                 end
             end
         end
