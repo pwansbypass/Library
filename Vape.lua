@@ -144,15 +144,31 @@ function lib:Window(text, preset, closebind)
     UserInputService.InputBegan:Connect(
         function(io, p)
             if io.KeyCode == CloseBind then
-		uitoggled = not uitoggled
-		   if uitoggled then
-		      ui.Enabled = false
-		   else
-		      ui.Enabled = true
-		end	
+				uitoggled = not uitoggled
+                if uitoggled then
+                    Main:TweenSize(
+                        UDim2.new(0, 0, 0, 0), 
+                        Enum.EasingDirection.Out, 
+                        Enum.EasingStyle.Quart, 
+                        .6, 
+                        true, 
+                        function()
+                            ui.Enabled = false
+                        end
+                    )
+                else
+                    ui.Enabled = true
+                    Main:TweenSize(
+                        UDim2.new(0, 560, 0, 319),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .6,
+                        true
+                    )
+                end
             end
         end
-    end)
+    )
 
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
