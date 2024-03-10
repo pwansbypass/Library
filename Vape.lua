@@ -136,19 +136,27 @@ function lib:Window(text, preset, closebind)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
 
+    Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
+
     MakeDraggable(DragFrame, Main)
 
     local uitoggled = false
     UserInputService.InputBegan:Connect(
         function(io, p)
             if io.KeyCode == CloseBind then
-		uitoggled = not uitoggled
+				uitoggled = not uitoggled
                 if not uitoggled then
-                    ui.Enabled = false
+                    Main:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true, function()
+                        ui.Enabled = false
+                    end)
                 else
-                    ui.Enabled = true
+                    Main:TweenSize(UDim2.new(0, 560, 0, 319),Enum.EasingDirection.Out,Enum.EasingStyle.Quart,.6,true, function()
+					    ui.Enabled = true
+					end)
+                end
             end
-        end)
+        end
+    )
 
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
