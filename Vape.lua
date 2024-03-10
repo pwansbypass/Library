@@ -145,7 +145,7 @@ function lib:Window(text, preset, closebind)
         function(io, p)
             if io.KeyCode == CloseBind then
 				uitoggled = not uitoggled
-                if uitoggled then
+                if not uitoggled then
                     Main:TweenSize(
                         UDim2.new(0, 0, 0, 0), 
                         Enum.EasingDirection.Out, 
