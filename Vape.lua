@@ -144,12 +144,12 @@ function lib:Window(text, preset, closebind)
     UserInputService.InputBegan:Connect(
         function(io, p)
             if io.KeyCode == CloseBind then
-				uitoggled = not uitoggled
-				if uitoggled then
-					ui.Enabled = false
-				else
-					ui.Enabled = true
-				end	
+		uitoggled = not uitoggled
+		   if uitoggled then
+		      ui.Enabled = false
+		   else
+		      ui.Enabled = true
+		end	
             end
         end
     end)
