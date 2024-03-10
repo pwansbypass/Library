@@ -150,7 +150,7 @@ function lib:Window(text, preset, closebind)
                         UDim2.new(0, 0, 0, 0), 
                         Enum.EasingDirection.Out, 
                         Enum.EasingStyle.Quart, 
-                        .6, 
+                        .3, 
                         true, 
                         function()
                             ui.Enabled = false
@@ -162,7 +162,7 @@ function lib:Window(text, preset, closebind)
                         UDim2.new(0, 560, 0, 319),
                         Enum.EasingDirection.Out,
                         Enum.EasingStyle.Quart,
-                        .6,
+                        .3,
                         true
                     )
                 end
