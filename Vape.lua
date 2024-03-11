@@ -5,7 +5,7 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
-local CloseBind = Enum.KeyCode.RightControl
+local CloseBind = nil
 
 local ui = Instance.new("ScreenGui")
 ui.Name = "ui"
@@ -86,7 +86,7 @@ local function MakeDraggable(topbarobject, object)
 end
 
 function lib:Window(text, preset, closebind)
-    CloseBind = closebind or Enum.KeyCode.RightControl
+    CloseBind = closebind
     PresetColor = preset or Color3.fromRGB(44, 120, 224)
     fs = false
     local Main = Instance.new("Frame")
