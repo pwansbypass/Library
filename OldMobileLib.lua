@@ -80,10 +80,7 @@ end
 
 
 function Hanki:Window(ScrName)
-	local taklakinq = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHzCihan/IDream/main/Tables/TaklaKing.lua", true))()
-
-	if taklakinq == "TaklaKing" then
-		if _Hawk == "ohhahtuhthttouttpwuttuaunbotwo" then
+	if _Hawk == "ohhahtuhthttouttpwuttuaunbotwo" then
 
 			for i, v in pairs(game.CoreGui:GetDescendants()) do
 				if v.Name == "Hawk" then
@@ -2192,13 +2189,9 @@ function Hanki:Window(ScrName)
 			end
 			return TabS
 		end
-	end		
-end
+	end
 
 function Hanki:Notification()
-	local taklakinq = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHzCihan/IDream/main/Tables/TaklaKing.lua", true))()
-
-	if taklakinq == "TaklaKing" then
 		if _Hawk == "ohhahtuhthttouttpwuttuaunbotwo" then
 
 			for i, v in pairs(game.CoreGui:GetDescendants()) do
@@ -3335,5 +3328,4 @@ function Hanki:Notification()
 			return NotificationItems
 		end	
 	end
-end
 return Hanki
